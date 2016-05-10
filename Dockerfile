@@ -14,3 +14,4 @@ RUN curl --silent -L `cat /tmp/etcd-viewer-release-archive` > /var/lib/jetty/web
 
 RUN chmod 644 /var/lib/jetty/webapps/ROOT.war
 RUN chown jetty:jetty /var/lib/jetty/webapps/ROOT.war
+EXPOSE 8080
