@@ -235,26 +235,25 @@
           <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>${jetty.version}</version>
-        <configuration>
-          <connectors>
-            <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-              <port>8080</port>
-              <maxIdleTime>3600000</maxIdleTime>
-            </connector>
-            <connector implementation="org.eclipse.jetty.server.ssl.SslSocketConnector">
-              <port>8443</port>
-              <maxIdleTime>3600000</maxIdleTime>
-              <keystore>${project.build.directory}/test-classes/keystore</keystore>
-              <password>wicket</password>
-              <keyPassword>wicket</keyPassword>
-            </connector>
-          </connectors>
-        </configuration>
-      </plugin>
+     <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.1</version>
+                    <executions>
+                        <execution>
+                            <id>tomcat-run</id>
+                            <goals>
+                                <goal>exec-war-only</goal>
+                            </goals>
+                            <phase>package</phase>
+                            <configuration>
+                                <path>/</path>                               
+                                <attachartifactclassifier>exec-war</attachartifactclassifier>
+                                <attachartifactclassifiertype>jar</attachartifactclassifiertype>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-eclipse-plugin</artifactId>
