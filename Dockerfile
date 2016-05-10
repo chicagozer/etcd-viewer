@@ -5,6 +5,7 @@ MAINTAINER Nikos Fountas "nikfoundas@gmail.com"
 # select the release to download
 ENV VIEWER_VERSION latest
 #ENV VIEWER_VERSION tags/v1.1
+EXPOSE 8080
 
 RUN curl --silent -X GET https://api.github.com/repos/nikfoundas/etcd-viewer/releases/${VIEWER_VERSION} | sed -n 's|.*\"browser_download_url\": \"\(.*\)\".*|\1|p' > /tmp/etcd-viewer-release-archive
 RUN curl --silent -L `cat /tmp/etcd-viewer-release-archive` > /var/lib/jetty/webapps/ROOT.war
@@ -14,4 +15,4 @@ RUN curl --silent -L `cat /tmp/etcd-viewer-release-archive` > /var/lib/jetty/web
 
 RUN chmod 644 /var/lib/jetty/webapps/ROOT.war
 RUN chown jetty:jetty /var/lib/jetty/webapps/ROOT.war
-EXPOSE 8080
+RUN java -jar "$JETTY_HOME/start.jar"
